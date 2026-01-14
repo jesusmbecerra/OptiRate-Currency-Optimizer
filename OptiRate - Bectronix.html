@@ -2,312 +2,505 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OptiRate - Bectronix</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #eef2f3; color: #333; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto; }
-        h2 { text-align: center; color: #2c3e50; font-size: 1.2rem; }
-        .grid-tasas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .campo { display: flex; flex-direction: column; margin-bottom: 10px; }
-        label { font-size: 0.75rem; font-weight: bold; margin-bottom: 4px; color: #666; }
-        input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
-        button { background: #27ae60; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #219150; }
-        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+        /* RESET Y BASE RESPONSIVE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 15px;
+            background: #eef2f3;
+            color: #333;
+            line-height: 1.4;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 5px;
+        }
+        
+        /* CARD RESPONSIVE */
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        /* HEADERS RESPONSIVE */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        /* GRID RESPONSIVO */
+        .grid-tasas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        /* CAMPO DE FORMULARIO */
+        .campo {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 8px;
+            width: 100%;
+        }
+        
+        label {
+            font-size: clamp(0.65rem, 3vw, 0.75rem);
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* INPUTS RESPONSIVE */
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #27ae60;
+            box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.2);
+        }
+        
+        /* BOTONES RESPONSIVE */
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        button:hover, button:active {
+            background: #219150;
+        }
+        
+        button.orange {
+            background: #e67e22;
+        }
+        
+        button.orange:hover, button.orange:active {
+            background: #d35400;
+        }
+        
+        /* SEPARADOR */
+        hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+        
+        /* RESULTADOS RESPONSIVE */
+        #resultado_final {
+            margin-top: 15px;
+            font-size: clamp(0.85rem, 3vw, 0.95rem);
+        }
+        
+        #resultado_final h3 {
+            font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        #resultado_final h4 {
+            font-size: clamp(0.85rem, 3vw, 1rem);
+            margin: 10px 0 5px 0;
+            color: #2c3e50;
+        }
+        
+        #resultado_final p {
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        
+        /* ESTRATEGIA SUGERIDA - MEJORADA PARA MÓVIL */
+        .estrategia-box {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+            border: 1px solid #ffeeba;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+        }
+        
+        .estrategia-box h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: clamp(0.85rem, 3vw, 0.95rem);
+        }
+        
+        .estrategia-box p {
+            margin-bottom: 6px;
+            padding-left: 10px;
+        }
+        
+        /* MEJOR OPCIÓN DESTACADA */
+        .mejor-opcion {
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 10px;
+        }
+        
+        /* TEXTO CENTRADO */
+        .text-center {
+            text-align: center;
+            font-size: clamp(0.75rem, 3vw, 0.85rem);
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        /* SCROLL SUAVE */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* MEDIA QUERIES PARA DIFERENTES TAMAÑOS */
+        @media (max-width: 320px) {
+            .grid-tasas {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 12px;
+            }
+            
+            input, select, button {
+                padding: 8px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+                padding: 0 15px;
+            }
+            
+            .grid-tasas {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 900px;
+            }
+            
+            .grid-tasas {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* MEJORAS PARA TECLADO VIRTUAL */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .card {
+                padding: 10px;
+            }
+            
+            .grid-tasas {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+        }
+        
+        /* ANIMACIONES SUAVES */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="card fade-in">
+            <h2>OptiRate - Bectronix 📊</h2>
+            <p class="text-center">Configura tus tasas de referencia (Mi Casa de Cambio)</p>
+            
+            <div class="grid-tasas">
+                <div class="campo">
+                    <label>Bs/USD (BCV)</label>
+                    <input type="number" id="tasa_bcv" step="0.01" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>Bs/USDT (Binance)</label>
+                    <input type="number" id="tasa_binance" step="0.01" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>USD/COP (Venta)</label>
+                    <input type="number" id="tasa_usd_cop_v" inputmode="numeric">
+                </div>
+                <div class="campo">
+                    <label>COP/USD (Compra)</label>
+                    <input type="number" id="tasa_cop_usd_c" inputmode="numeric">
+                </div>
+                <div class="campo">
+                    <label>COP/Bs (Venta)</label>
+                    <input type="number" id="tasa_cop_bs_v" step="0.01" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>Bs/COP (Compra)</label>
+                    <input type="number" id="tasa_bs_cop_c" inputmode="numeric">
+                </div>
+                <div class="campo">
+                    <label>USDT/COP (Binance)</label>
+                    <input type="number" id="tasa_usdt_cop" inputmode="numeric">
+                </div>
+            </div>
 
-    <div class="card">
-        <h2>OptiRate - Bectronix 📊</h2>
-        <p style="font-size: 0.8rem; text-align: center;">Configura tus tasas de referencia (Mi Casa de Cambio)</p>
-        
-        <div class="grid-tasas">
-            <div class="campo">
-                <label>Bs/USD (BCV)</label>
-                <input type="number" id="tasa_bcv" step="0.01">
-            </div>
-            <div class="campo">
-                <label>Bs/USDT (Binance)</label>
-                <input type="number" id="tasa_binance" step="0.01">
-            </div>
-            <div class="campo">
-                <label>USD/COP (Venta)</label>
-                <input type="number" id="tasa_usd_cop_v">
-            </div>
-            <div class="campo">
-                <label>COP/USD (Compra)</label>
-                <input type="number" id="tasa_cop_usd_c">
-            </div>
-            <div class="campo">
-                <label>COP/Bs (Venta)</label>
-                <input type="number" id="tasa_cop_bs_v">
-            </div>
-            <div class="campo">
-                <label>Bs/COP (Compra)</label>
-                <input type="number" id="tasa_bs_cop_c">
-            </div>
-            <div class="campo">
-                <label>USDT/COP (Binance)</label>
-                <input type="number" id="tasa_usdt_cop">
-            </div>
+            <button onclick="guardarTasas()">💾 Guardar Tasas</button>
         </div>
 
-        <button onclick="guardarTasas()">💾 Guardar Tasas</button>
-    </div>
-<div class="card" id="calculadora">
-    <h2>💰 Ofertas del Vendedor</h2>
-    <p style="font-size: 0.8rem; color: #666;">Ingresa los precios que te dio el comercio:</p>
-    
-    <div class="grid-tasas">
-        <div class="campo">
-            <label>Precio en USD ($)</label>
-            <input type="number" id="off_usd" placeholder="Ej: 10">
-        </div>
-        <div class="campo">
-            <label>Precio en USD (a tasa BCV)</label>
-            <input type="number" id="off_bcv" placeholder="Ej: 15">
-        </div>
-        <div class="campo">
-            <label>Precio en USD (a Binance o Euro)</label>
-            <input type="number" id="off_binance" placeholder="Ej: 12">
-        </div>
-        <div class="campo">
-            <label>Precio total en COP</label>
-            <input type="number" id="off_cop" placeholder="Ej: 40000">
-        </div>
-    </div>
+        <div class="card fade-in" id="calculadora">
+            <h2>💰 Ofertas del Vendedor</h2>
+            <p class="text-center">Ingresa los precios que te dio el comercio:</p>
+            
+            <div class="grid-tasas">
+                <div class="campo">
+                    <label>Precio en USD ($)</label>
+                    <input type="number" id="off_usd" placeholder="Ej: 10" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>Precio en USD (a tasa BCV)</label>
+                    <input type="number" id="off_bcv" placeholder="Ej: 15" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>Precio en USD (a Binance o Euro)</label>
+                    <input type="number" id="off_binance" placeholder="Ej: 12" inputmode="decimal">
+                </div>
+                <div class="campo">
+                    <label>Precio total en COP</label>
+                    <input type="number" id="off_cop" placeholder="Ej: 40000" inputmode="numeric">
+                </div>
+            </div>
 
-    <hr>
-    <div class="campo">
-        <label>¿Qué moneda tienes tú para pagar?</label>
-        <select id="tengo_moneda">
-            <option value="usd">Dólares Efectivo</option>
-            <option value="bs">Bolívares</option>
-            <option value="cop">Pesos Colombianos</option>
-            <option value="usdt">Dólar Digital (Binance)</option>
-        </select>
-    </div>
+            <hr>
+            <div class="campo">
+                <label>¿Qué moneda tienes tú para pagar?</label>
+                <select id="tengo_moneda">
+                    <option value="usd">Dólares Efectivo</option>
+                    <option value="bs">Bolívares</option>
+                    <option value="cop">Pesos Colombianos</option>
+                    <option value="usdt">Dólar Digital (Binance)</option>
+                </select>
+            </div>
 
-    <button onclick="compararTodo()" style="background: #e67e22;">🔥 ¿Cuál me conviene más?</button>
+            <button onclick="compararTodo()" class="orange">🔥 ¿Cuál me conviene más?</button>
 
-    <div id="resultado_final" style="margin-top: 20px;"></div>
-</div>
+            <div id="resultado_final" style="margin-top: 15px;"></div>
+        </div>
     </div>
 
     <script>
-        
-  const valoresIniciales = {
-    tasa_bcv: 330.37,
-    tasa_binance: 584,
-    tasa_usd_cop_v: 3710,
-    tasa_cop_usd_c: 3750,
-    tasa_cop_bs_v: 6.6,
-    tasa_bs_cop_c: 7,
-    tasa_usdt_cop: 3600
-};  
+        // MANTENGO EXACTAMENTE EL MISMO JAVASCRIPT
+        const valoresIniciales = {
+            tasa_bcv: 330.37,
+            tasa_binance: 584,
+            tasa_usd_cop_v: 3710,
+            tasa_cop_usd_c: 3750,
+            tasa_cop_bs_v: 6.6,
+            tasa_bs_cop_c: 7,
+            tasa_usdt_cop: 3600
+        };  
 
+        const camposTasas = [
+            'tasa_bcv', 'tasa_binance', 'tasa_usd_cop_v', 
+            'tasa_cop_usd_c', 'tasa_cop_bs_v', 'tasa_bs_cop_c', 'tasa_usdt_cop'
+        ];
 
-   // 1. Definición de IDs de los campos de tasas
-const camposTasas = [
-    'tasa_bcv', 'tasa_binance', 'tasa_usd_cop_v', 
-    'tasa_cop_usd_c', 'tasa_cop_bs_v', 'tasa_bs_cop_c', 'tasa_usdt_cop'
-];
+        function cargarDatos() {
+            camposTasas.forEach(id => {
+                const guardado = localStorage.getItem(id);
+                if (guardado !== null) {
+                    document.getElementById(id).value = guardado;
+                } else {
+                    document.getElementById(id).value = valoresIniciales[id];
+                }
+            });
+        }
 
-function cargarDatos() {
-        camposTasas.forEach(id => {
-            const guardado = localStorage.getItem(id);
-            
-            if (guardado !== null) {
-                // Si existe en la memoria del navegador, úsalo
-                document.getElementById(id).value = guardado;
-            } else {
-                // Si borraste el historial, usa el valor inicial del objeto de arriba
-                document.getElementById(id).value = valoresIniciales[id];
+        function compararTodo() {
+            const misTasas = {
+                bcv: parseFloat(document.getElementById('tasa_bcv').value) || 0,
+                binance: parseFloat(document.getElementById('tasa_binance').value) || 0,
+                usd_a_cop: parseFloat(document.getElementById('tasa_usd_cop_v').value) || 0,
+                cop_a_usd: parseFloat(document.getElementById('tasa_cop_usd_c').value) || 0,
+                cop_a_bs: parseFloat(document.getElementById('tasa_cop_bs_v').value) || 0
+            };
+
+            const ofertas = {
+                efectivo: parseFloat(document.getElementById('off_usd').value) || 0,
+                bcv: parseFloat(document.getElementById('off_bcv').value) || 0,
+                binance: parseFloat(document.getElementById('off_binance').value) || 0,
+                cop: parseFloat(document.getElementById('off_cop').value) || 0
+            };
+
+            const miMoneda = document.getElementById('tengo_moneda').value;
+            let analisis = [];
+
+            if(ofertas.efectivo > 0) {
+                analisis.push({ nombre: "Dólar Efectivo", costo: ofertas.efectivo });
             }
-        });
-    }
 
+            if(ofertas.bcv > 0) {
+                let montoEnBs = ofertas.bcv * misTasas.bcv; 
+                let costoRealUSD = montoEnBs / misTasas.binance; 
+                analisis.push({ nombre: "Bs (Tasa BCV)", costo: costoRealUSD });
+            }
 
-function compararTodo() {
-    // 1. Tus tasas personales (Asegúrate de capturar TODAS las que usaremos en la recomendación)
-    const misTasas = {
-        bcv: parseFloat(document.getElementById('tasa_bcv').value) || 0,
-        binance: parseFloat(document.getElementById('tasa_binance').value) || 0,
-        usd_a_cop: parseFloat(document.getElementById('tasa_usd_cop_v').value) || 0,
-        cop_a_usd: parseFloat(document.getElementById('tasa_cop_usd_c').value) || 0,
-        cop_a_bs: parseFloat(document.getElementById('tasa_cop_bs_v').value) || 0 // Agregada
-    };
+            if(ofertas.binance > 0) {
+                analisis.push({ nombre: "Dólar Binance", costo: ofertas.binance });
+            }
 
-    // 2. Las ofertas del vendedor
-    const ofertas = {
-        efectivo: parseFloat(document.getElementById('off_usd').value) || 0,
-        bcv: parseFloat(document.getElementById('off_bcv').value) || 0,
-        binance: parseFloat(document.getElementById('off_binance').value) || 0,
-        cop: parseFloat(document.getElementById('off_cop').value) || 0
-    };
+            if(ofertas.cop > 0) {
+                let costoRealUSD = ofertas.cop / misTasas.usd_a_cop; 
+                analisis.push({ nombre: "Pesos COP", costo: costoRealUSD });
+            }
 
-    const miMoneda = document.getElementById('tengo_moneda').value;
-    let analisis = [];
+            if (analisis.length === 0) {
+                document.getElementById('resultado_final').innerHTML = '<p style="color: #dc3545;">⚠️ Ingresa al menos un precio de oferta.</p>';
+                return;
+            }
 
-    // 3. Lógica de conversión a "Dólares Reales"
-    if(ofertas.efectivo > 0) {
-        analisis.push({ nombre: "Dólar Efectivo", costo: ofertas.efectivo });
-    }
+            analisis.sort((a, b) => a.costo - b.costo);
 
-    if(ofertas.bcv > 0) {
-        // Tu costo real: lo que te costó a TI conseguir esos bolívares (usando tasa Binance/Paralelo)
-        let montoEnBs = ofertas.bcv * misTasas.bcv; 
-        let costoRealUSD = montoEnBs / misTasas.binance; 
-        analisis.push({ nombre: "Bs (Tasa BCV)", costo: costoRealUSD });
-    }
+            let htmlResultado = '<h3>📊 Ranking de Conveniencia:</h3>';
+            analisis.forEach((item, index) => {
+                if (index === 0) {
+                    htmlResultado += `
+                        <div class="mejor-opcion">
+                            <p style="color: #28a745; font-weight: bold;">
+                                ⭐ MEJOR OPCIÓN: <b>${item.nombre}</b>
+                            </p>
+                            <p style="margin-top: 5px;">Costo real: <b>$${item.costo.toFixed(2)} USD</b></p>
+                        </div>`;
+                } else {
+                    htmlResultado += `<p style="margin-bottom: 5px;"><b>${item.nombre}</b>: $${item.costo.toFixed(2)} USD</p>`;
+                }
+            });
 
-    if(ofertas.binance > 0) {
-        analisis.push({ nombre: "Dólar Binance", costo: ofertas.binance });
-    }
+            let htmlTasasVendedor = "<hr><h4>📈 Tasas Implícitas del Vendedor:</h4>";
+            if (ofertas.cop > 0 && ofertas.efectivo > 0) {
+                let tasaVendedorCOP = ofertas.cop / ofertas.efectivo;
+                let esMala = tasaVendedorCOP > misTasas.cop_a_usd; 
+                let color = esMala ? "#dc3545" : "#28a745";
+                let icono = esMala ? "⚠️" : "✅";
+                htmlTasasVendedor += `<p style="color: ${color}">${icono} Tasa COP vendedor: <b>${tasaVendedorCOP.toFixed(0)}</b> (Tu Denver: ${misTasas.cop_a_usd})</p>`;
+            }
 
-    if(ofertas.cop > 0) {
-        let costoRealUSD = ofertas.cop / misTasas.usd_a_cop; 
-        analisis.push({ nombre: "Pesos COP", costo: costoRealUSD });
-    }
+            const mejorOpcion = analisis[0]; 
+            let recomendacionRuta = '<div class="estrategia-box">';
+            recomendacionRuta += "<h4>💡 Estrategia Sugerida:</h4>";
 
-    // Si no hay datos, salir
-    if (analisis.length === 0) {
-        document.getElementById('resultado_final').innerHTML = "⚠️ Ingresa al menos un precio de oferta.";
-        return;
-    }
+            if ((miMoneda === 'usd' && mejorOpcion.nombre === "Dólar Efectivo") ||
+                (miMoneda === 'bs' && mejorOpcion.nombre.includes("Bs")) ||
+                (miMoneda === 'cop' && mejorOpcion.nombre === "Pesos COP") ||
+                (miMoneda === 'usdt' && mejorOpcion.nombre === "Dólar Binance")) {
+                recomendacionRuta += "<p>✅ <b>Acción directa:</b> Ya tienes la moneda ideal. Paga directamente.</p>";
+            } else if (miMoneda === 'usd' && mejorOpcion.nombre === "Bs (Tasa BCV)") {
+                recomendacionRuta += `
+                    <p>1. Cambia USD → Pesos (Denver: <b>${misTasas.usd_a_cop}</b>)</p>
+                    <p>2. Cambia Pesos → Bolívares (<b>${misTasas.cop_a_bs}</b>)</p>
+                    <p>3. Paga en Bolívares</p>`;
+            } else if (miMoneda === 'cop' && mejorOpcion.nombre === "Dólar Efectivo") {
+                recomendacionRuta += `
+                    <p>1. No pagues en Pesos directamente</p>
+                    <p>2. Compra USD en Denver (<b>${misTasas.cop_a_usd}</b>)</p>
+                    <p>3. Paga con USD físico</p>`;
+            } else if (miMoneda === 'bs' && mejorOpcion.nombre === "Pesos COP") {
+                recomendacionRuta += `
+                    <p>1. El vendedor tiene buena tasa en Pesos</p>
+                    <p>2. Cambia Bs → Pesos y paga en COP</p>`;
+            } else {
+                recomendacionRuta += "<p>Compara el costo con tu moneda disponible para decidir el cambio.</p>";
+            }
 
-    // 4. Ordenar ranking
-    analisis.sort((a, b) => a.costo - b.costo);
+            recomendacionRuta += "</div>";
 
-    // 5. Construir HTML de Ranking
-    let htmlResultado = "<h3>Ranking de Conveniencia:</h3>";
-    analisis.forEach((item, index) => {
-        const color = index === 0 ? "green" : "black";
-        const estrella = index === 0 ? "⭐ MEJOR OPCIÓN: " : "";
-        htmlResultado += `<p style="color: ${color}">${estrella}<b>${item.nombre}</b>: Te sale en $${item.costo.toFixed(2)} reales</p>`;
-    });
+            document.getElementById('resultado_final').innerHTML = htmlResultado + recomendacionRuta + htmlTasasVendedor;
+            
+            // Scroll suave a resultados
+            document.getElementById('resultado_final').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest' 
+            });
+        }
 
-    // --- ANÁLISIS DE TASAS DEL VENDEDOR ---
-    let htmlTasasVendedor = "<hr><h4>Tasas Implícitas del Vendedor:</h4>";
-    if (ofertas.cop > 0 && ofertas.efectivo > 0) {
-        let tasaVendedorCOP = ofertas.cop / ofertas.efectivo;
-        let esMala = tasaVendedorCOP > misTasas.cop_a_usd; 
-        let color = esMala ? "red" : "green";
-        htmlTasasVendedor += `<p style="color: ${color}">Tasa COP vendedor: <b>${tasaVendedorCOP.toFixed(0)}</b> (Tu Denver: ${misTasas.cop_a_usd})</p>`;
-    }
+        function guardarTasas() {
+            camposTasas.forEach(id => {
+                localStorage.setItem(id, document.getElementById(id).value);
+            });
+            
+            // Notificación más amigable para móvil
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #28a745;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: bold;
+                animation: fadeInOut 2s ease-in-out;
+            `;
+            alertDiv.textContent = '✅ Tasas guardadas exitosamente';
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 2000);
+        }
 
-    // --- LÓGICA DE RECOMENDACIÓN DE RUTA ---
-    const mejorOpcion = analisis[0]; 
-    let recomendacionRuta = "<div style='background:#fff3cd; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #ffeeba;'>";
-    recomendacionRuta += "<h4>💡 Estrategia Sugerida:</h4>";
-
-    // CASO A: Ya tienes la moneda ideal
-    if (
-        (miMoneda === 'usd' && mejorOpcion.nombre === "Dólar Efectivo") ||
-        (miMoneda === 'bs' && mejorOpcion.nombre.includes("Bs")) ||
-        (miMoneda === 'cop' && mejorOpcion.nombre === "Pesos COP") ||
-        (miMoneda === 'usdt' && mejorOpcion.nombre === "Dólar Binance")
-    ) {
-        recomendacionRuta += "<p>✅ <b>Acción directa:</b> Ya tienes la moneda ideal. Paga directamente.</p>";
-    } 
-    
-    // CASO B: Tienes USD pero la mejor opción es Bs (BCV) - Triangulación
-    else if (miMoneda === 'usd' && mejorOpcion.nombre === "Bs (Tasa BCV)") {
-        recomendacionRuta += `
-            <p>1. Cambia tus USD a Pesos (Denver) a <b>${misTasas.usd_a_cop}</b>.</p>
-            <p>2. Cambia esos Pesos a Bolívares a <b>${misTasas.cop_a_bs}</b>.</p>
-            <p>3. Paga en Bolívares por transferencia o punto.</p>`;
-    }
-
-    // CASO C: Tienes COP pero la mejor opción es USD Efectivo
-    else if (miMoneda === 'cop' && mejorOpcion.nombre === "Dólar Efectivo") {
-        recomendacionRuta += `
-            <p>1. No pagues en Pesos directamente.</p>
-            <p>2. Usa tus pesos para comprar USD en Denver a <b>${misTasas.cop_a_usd}</b>.</p>
-            <p>3. Paga con el billete de USD.</p>`;
-    }
-
-    // CASO D: Tienes Bolívares pero la mejor opción es COP
-    else if (miMoneda === 'bs' && mejorOpcion.nombre === "Pesos COP") {
-        recomendacionRuta += `
-            <p>1. El vendedor tiene muy buena tasa en Pesos.</p>
-            <p>2. Cambia tus Bs a Pesos (Denver/Calle) y paga en COP.</p>`;
-    }
-    
-    else {
-        recomendacionRuta += "<p>Compara el precio obtenido con tu disponibilidad actual para decidir el cambio.</p>";
-    }
-
-    recomendacionRuta += "</div>";
-
-    // Unimos todo al final
-    document.getElementById('resultado_final').innerHTML = htmlResultado + recomendacionRuta + htmlTasasVendedor;
-}
-
-// 3. Guardar datos manualmente
-function guardarTasas() {
-    camposTasas.forEach(id => {
-        localStorage.setItem(id, document.getElementById(id).value);
-    });
-    alert("✅ Tasas actualizadas en tu bolsillo digital.");
-}
-
-
-
-// 4. EL MOTOR DE CÁLCULO (Aquí ocurre la magia)
-function calcularConveniencia() {
-    // Datos de la oferta del vendedor
-    const montoVendedor = parseFloat(document.getElementById('monto_oferta').value);
-    const monedaOferta = document.getElementById('moneda_oferta').value;
-    
-    // Tus tasas personales
-    const tasas = {
-        bcv: parseFloat(document.getElementById('tasa_bcv').value) || 1,
-        binance: parseFloat(document.getElementById('tasa_binance').value) || 1,
-        usd_cop: parseFloat(document.getElementById('tasa_usd_cop_v').value) || 1,
-        cop_usd: parseFloat(document.getElementById('tasa_cop_usd_c').value) || 1
-    };
-
-    if (!montoVendedor) {
-        document.getElementById('resultado').innerHTML = "⚠️ Ingresa un precio";
-        return;
-    }
-
-    let equivalenteUSD = 0;
-
-    // Convertimos lo que pide el vendedor a "Dólar Efectivo" (tu base de comparación)
-    switch (monedaOferta) {
-        case 'usd': 
-            equivalenteUSD = montoVendedor; 
-            break;
-        case 'bs_bcv': 
-            equivalenteUSD = montoVendedor / tasas.bcv; 
-            break;
-        case 'bs_binance': 
-            equivalenteUSD = montoVendedor / tasas.binance; 
-            break;
-        case 'cop': 
-            // Si el vendedor te pide COP, calculamos cuántos USD te cuesta conseguir esos COP
-            equivalenteUSD = montoVendedor / tasas.usd_cop; 
-            break;
-    }
-
-    // Veredicto
-    const divResultado = document.getElementById('resultado');
-    divResultado.innerHTML = `
-        <div style="background: #d4edda; padding: 15px; border-radius: 8px; border: 1px solid #c3e6cb;">
-            <p style="margin: 0; color: #155724;">Costo real para ti:</p>
-            <h3 style="margin: 5px 0;">$${equivalenteUSD.toFixed(2)} USD</h3>
-            <p style="font-size: 0.8rem; color: #666;">
-                Comparado con el precio en efectivo, aquí sabes si estás pagando de más.
-            </p>
-        </div>
-    `;
-}
-
-window.onload = cargarDatos;
+        window.onload = cargarDatos;
     </script>
 </body>
 </html>
